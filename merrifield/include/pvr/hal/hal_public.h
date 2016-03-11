@@ -27,30 +27,11 @@
 #define PVR_ANDROID_NATIVE_WINDOW_HAS_SYNC
 
 #include "img_gralloc_public.h"
-#undef HAL_PIXEL_FORMAT_NV12
-typedef struct _IMG_gralloc_module_
-{
-	IMG_gralloc_module_public_t base;
-	void *(*GetDisplayDevice)(struct _IMG_gralloc_module_ *psGrallocModule);
-	int (*GetDisplayStatus)(struct _IMG_gralloc_module_ *psGrallocModule,
-							buffer_handle_t handle, uint32_t *pui32Status);
-	int (*GetBufferCPUAddresses)(gralloc_module_t const* module,
-								 buffer_handle_t buffer,
-								 void **ppvCpuVirtAddr, size_t *puSize);
-	int (*PutBufferCPUAddresses)(gralloc_module_t const* module,
-								 buffer_handle_t buffer);
-}
-IMG_gralloc_module_t;
 
-#define HAL_PIXEL_FORMAT_UYVY         0x107
-#define HAL_PIXEL_FORMAT_INTEL_ZSL    0x109
-#define HAL_PIXEL_FORMAT_NV12         0x3231564E
-#define HAL_PIXEL_FORMAT_NV21         0x3132564E
-#define HAL_PIXEL_FORMAT_I420         0x30323449
-#define HAL_PIXEL_FORMAT_YUY2         0x32595559
-#define HAL_PIXEL_FORMAT_NV12_VED     0x7FA00E00
-#define HAL_PIXEL_FORMAT_NV12_VEDT    0x7FA00F00
+#undef HAL_PIXEL_FORMAT_NV12
+
 #ifdef ASUS_ZENFONE2_LP_BLOBS
+
 typedef struct IMG_gralloc_module_t
 {
         gralloc_module_t base;
@@ -82,6 +63,9 @@ typedef struct IMG_gralloc_module_t
         void *(*GetDisplayDevice)(struct IMG_gralloc_module_t *module);
 }
 IMG_gralloc_module_t;
+
+#else
+
 typedef struct _IMG_gralloc_module_
 {
 	IMG_gralloc_module_public_t base;
@@ -97,6 +81,16 @@ typedef struct _IMG_gralloc_module_
 IMG_gralloc_module_t;
 
 #endif
+
+#define HAL_PIXEL_FORMAT_UYVY         0x107
+#define HAL_PIXEL_FORMAT_INTEL_ZSL    0x109
+#define HAL_PIXEL_FORMAT_NV12         0x3231564E
+#define HAL_PIXEL_FORMAT_NV21         0x3132564E
+#define HAL_PIXEL_FORMAT_I420         0x30323449
+#define HAL_PIXEL_FORMAT_YUY2         0x32595559
+#define HAL_PIXEL_FORMAT_NV12_VED     0x7FA00E00
+#define HAL_PIXEL_FORMAT_NV12_VEDT    0x7FA00F00
+
 #define GRALLOC_MODULE_GET_DISPLAY_STATUS_IMG 1001
 
 #endif /* __HAL_PUBLIC_H */
